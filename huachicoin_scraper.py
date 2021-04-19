@@ -2,10 +2,17 @@ import requests
 import bs4
 import re
 import json
+import os
 from currency_converter import CurrencyConverter
 
-
+# Global Variables
 JSON_FILE = './huachicoin_data.json'
+
+BSCSCAN_API_KEY = os.environ['BSCSCAN_API_KEY']
+
+URL_PANCAKE_SWAP_BNB = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c&address=0x6f8546EB8b92e6F8f927A0A5B2f90A1D5b8E52ee&tag=latest&apikey={}".format(BSCSCAN_API_KEY)
+URL_PANCAKE_SWAP_HCN = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0x0863d3605f2b16183b500e3b5fe205b46739e3e6&address=0x6f8546EB8b92e6F8f927A0A5B2f90A1D5b8E52ee&tag=latest&apikey={}".format(BSCSCAN_API_KEY)
+URL_PRICE_BNB = "https://api.bscscan.com/api?module=stats&action=bnbprice&apikey={}".format(BSCSCAN_API_KEY)
 
 
 def write_file(file, data):
@@ -24,25 +31,20 @@ def write_file(file, data):
 
 if __name__ == '__main__':
 
-    url_pancake_swap_BNB = requests.get("https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c&address=0x6f8546EB8b92e6F8f927A0A5B2f90A1D5b8E52ee&tag=latest&apikey=49R78GV1AM594JYGRPZXMZYX4I83WZ522K")
-    url_pancake_swap_HCN = requests.get("https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0x0863d3605f2b16183b500e3b5fe205b46739e3e6&address=0x6f8546EB8b92e6F8f927A0A5B2f90A1D5b8E52ee&tag=latest&apikey=49R78GV1AM594JYGRPZXMZYX4I83WZ522K")
-    url_price_BNB = requests.get("https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=49R78GV1AM594JYGRPZXMZYX4I83WZ522K")
-    
-    #BeautifulSoup para extrae informacion 
-    soup_BNB = bs4.BeautifulSoup(url_pancake_swap_BNB.content, "html.parser").string
-    soup_HCN = bs4.BeautifulSoup(url_pancake_swap_HCN.content, "html.parser").string
-    soup_price_BNB = bs4.BeautifulSoup(url_price_BNB.content, "html.parser").string
-    
     #JSON a Diccionario
-    bnb_pancake = json.loads(soup_BNB)
-    hcn_pancake = json.loads(soup_HCN)
-    usd_price_BNB = json.loads(soup_price_BNB)["result"]
-    
+    try:
+        bnb_pancake = requests.get(URL_PANCAKE_SWAP_BNB).json()["result"]
+        hcn_pancake = requests.get(URL_PANCAKE_SWAP_HCN).json()["result"]
+        usd_price_BNB = requests.get(URL_PRICE_BNB).json()["result"]
+    except Exception as e:
+        print(str(e))
+        exit(0)
+
     #Liquidez BNB
-    bnb_pancake = int(bnb_pancake["result"])/10**18
+    bnb_pancake = int(bnb_pancake)/10**18
     
     #HCN Encerrado
-    hcn_pancake = int(hcn_pancake["result"])/10**9
+    hcn_pancake = int(hcn_pancake)/10**9
     
     #Precio HCN en BNB
     hcn_price_BNB = '%.16f' %(bnb_pancake/hcn_pancake)
