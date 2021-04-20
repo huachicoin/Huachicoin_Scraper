@@ -28,6 +28,8 @@ jobs:
 
       # Use pip to install the dependencies and then run the script.
       - name: Running Script
+        env:
+          BSCSCAN_API_KEY: ${{ secrets.BSCSCAN_API_KEY }}
         run: |
           pip install -r requirements.txt
           python huachicoin_scraper.py 
