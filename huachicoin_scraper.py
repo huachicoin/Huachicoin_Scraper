@@ -10,8 +10,8 @@ JSON_FILE = './huachicoin_data.json'
 
 BSCSCAN_API_KEY = os.environ['BSCSCAN_API_KEY']
 
-URL_PANCAKE_SWAP_BNB = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c&address=0x6f8546EB8b92e6F8f927A0A5B2f90A1D5b8E52ee&tag=latest&apikey={}".format(BSCSCAN_API_KEY)
-URL_PANCAKE_SWAP_HCN = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0x0863d3605f2b16183b500e3b5fe205b46739e3e6&address=0x6f8546EB8b92e6F8f927A0A5B2f90A1D5b8E52ee&tag=latest&apikey={}".format(BSCSCAN_API_KEY)
+URL_PANCAKE_SWAP_BNB = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c&address=0xd074f75a329e348629e13ea05bf379b299f7714e&tag=latest&apikey={}".format(BSCSCAN_API_KEY)
+URL_PANCAKE_SWAP_HCN = "https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=0x0863d3605f2b16183b500e3b5fe205b46739e3e6&address=0xd074f75a329e348629e13ea05bf379b299f7714e&tag=latest&apikey={}".format(BSCSCAN_API_KEY)
 URL_PRICE_BNB = "https://api.bscscan.com/api?module=stats&action=bnbprice&apikey={}".format(BSCSCAN_API_KEY)
 
 
