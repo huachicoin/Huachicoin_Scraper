@@ -63,7 +63,7 @@ if __name__ == '__main__':
         "precio_BNB":usd_price_BNB["ethusd"],
         "precio_HCN_BNB":hcn_price_BNB,
         "precio_HCN_USD":hcn_price_USD,
-        "precio_HCN_MXN":str(hcn_price_MXN)
+        "precio_HCN_MXN": '{:.10f}'.format(hcn_price_MXN)
     }
 
     write_file(JSON_FILE, data)
