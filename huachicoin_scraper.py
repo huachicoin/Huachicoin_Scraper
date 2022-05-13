@@ -52,6 +52,8 @@ if __name__ == '__main__':
     #Precio HCN en USD
     hcn_price_USD = '%.16f' %(float(hcn_price_BNB) * float(usd_price_BNB["ethusd"]))
     
+    print("precio USD en MXN es {}".format(CurrencyConverter().convert(1, 'USD', 'MXN')))
+    
     #Precio HCN en MXN
     hcn_price_MXN = float(hcn_price_USD) * CurrencyConverter().convert(1, 'USD', 'MXN')
 
